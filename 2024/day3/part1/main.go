@@ -34,6 +34,7 @@ func main() {
 		}
 
 	}
+	checkErr(scanner.Err())
 
 	fmt.Println(total)
 
