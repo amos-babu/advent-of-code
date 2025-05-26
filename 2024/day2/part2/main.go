@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	file, err := os.Open("input2.txt")
+	file, err := os.Open("input.txt")
 	check(err)
 
 	defer file.Close()
@@ -20,16 +20,20 @@ func main() {
 	for scanner.Scan() {
 		line := scanner.Text()
 		nums := parseLineToIts(line)
-		if isSafeReport(nums) {
-			safeCount++
+
+		for i := 0; i < len(nums); i++ {
+			short := []int{}
+			short = append(short, nums[:i]...)
+			short = append(short, nums[i+1:]...)
+			if isSafeReport(short) {
+				safeCount++
+				break
+			}
 		}
+
 	}
 
 	fmt.Println(safeCount)
-}
-
-func removeUnsafe() {
-
 }
 
 func parseLineToIts(line string) []int {
