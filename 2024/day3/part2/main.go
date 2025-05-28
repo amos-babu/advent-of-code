@@ -73,7 +73,7 @@ func main() {
 		}
 	}
 
-	fmt.Println("Part Two total:", total)
+	fmt.Println(total)
 }
 
 func checkErr(err error) {
