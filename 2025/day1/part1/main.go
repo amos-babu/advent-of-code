@@ -17,8 +17,10 @@ func main() {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-	var pos = 50
-	var positionNumbers []int
+	var (
+		pos             = 50
+		positionNumbers []int
+	)
 
 	for scanner.Scan() {
 		line := scanner.Text()
