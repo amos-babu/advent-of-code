@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	f, err := os.Open("../sample-input.txt")
+	f, err := os.Open("../input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -44,27 +44,32 @@ func main() {
 		for i := ints[0]; i <= ints[1]; i++ {
 			s := strconv.Itoa(i)
 
-			if len(s) < 2 {
-				continue
-			}
-
-			for i := 2; i < (len(s)/2)+1; i++ {
-				n := s[:i]
-				fmt.Println(n)
-				if strings.Contains(s, n) {
-					num, err := strconv.Atoi(s)
-					if err != nil {
-						log.Fatal(err)
-					}
-					totalInvalid += num
-				}
-				break
+			if isInvalidID(s) {
+				totalInvalid += i
 			}
 		}
 
 		fmt.Println(totalInvalid)
-		// break
 	}
+}
+
+func isInvalidID(s string) bool {
+	length := len(s)
+
+	for subLen := 1; subLen <= length/2; subLen++ {
+		if length%subLen != 0 {
+			continue
+		}
+
+		sub := s[:subLen]
+		repeated := strings.Repeat(sub, length/subLen)
+
+		if repeated == s {
+			return true
+		}
+	}
+
+	return false
 }
 
 func dashSeparator(r rune) bool {
